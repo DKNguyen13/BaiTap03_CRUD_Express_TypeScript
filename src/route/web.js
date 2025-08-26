@@ -1,21 +1,19 @@
 import express from "express";
 import homeController from "../controller/homeController";
 
-const router = express.Router();
+let router = express.Router();
 
 const initWebRoutes = (app) => {
-    router.get('/', (req, res) => res.send('Duong Khanh Nguyen'));
+    router.get("/", homeController.getHomePage); // Trang chủ
+    router.get("/about", homeController.getAboutPage); // Trang giới thiệu
+    router.get("/crud", homeController.getCRUD); // Form CRUD
+    router.post("/post-crud", homeController.postCRUD); // Tạo mới user
+    router.get("/get-crud", homeController.getFindAllCrud); // Danh sách user
+    router.get("/edit-crud", homeController.getEditCRUD); // Edit user
+    router.post("/put-crud", homeController.putCRUD); // Update user
+    router.get("/delete-crud", homeController.deleteCRUD); // Xóa user
 
-    router.get('/home', homeController.getHomePage);
-    router.get('/about', homeController.getAboutPage); // Cần thêm hàm này
-    router.get('/crud', homeController.getCRUD);
-    router.post('/post-crud', homeController.postCRUD);
-    router.get('/get-crud', homeController.getFindAllCrud);
-    router.get('/edit-crud', homeController.getEditCRUD);
-    router.post('/put-crud', homeController.putCRUD); // Sửa từ PUT sang POST nếu bạn dùng form
-    router.get('/delete-crud', homeController.deleteCRUD);
-
-    app.use("/", router); // Không cần return
+    return app.use("/", router);
 };
 
 export default initWebRoutes;
